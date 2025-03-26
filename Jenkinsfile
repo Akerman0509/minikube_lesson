@@ -1,5 +1,7 @@
-def helmValues = "/var/lib/jenkins/workspace/${JOB_NAME}/app-demo/values.yaml"
-def helmChart = "/var/lib/jenkins/workspace/${JOB_NAME}/app-demo/"
+// def helmValues = "/var/lib/jenkins/workspace/${JOB_NAME}/app-demo/values.yaml"
+// def helmChart = "/var/lib/jenkins/workspace/${JOB_NAME}/app-demo/"
+
+
 
 pipeline {
     agent any
@@ -9,9 +11,9 @@ pipeline {
     }
 
     environment {
-        REPO_URL = 'https://github.com/ntquan/nodejs-app-ci-cd.git'
+        REPO_URL = 'https://github.com/Akerman0509/minikube_lesson.git'
         BRANCH_NAME = "${params.BRANCH_NAME}"
-        IMAGE_NAME = 'ntquan87/nodejs-app-ci-cd'
+        IMAGE_NAME = 'ntquan87/nodejs-app-ci-cd-pnhquan'
     }
 
 
@@ -60,14 +62,14 @@ pipeline {
                 }
             }
         }
-        stage('Apply k8s') {
-            steps {
-                script {
-                    echo "Deploy to k8s"
-                    sh "helm upgrade --install --namespace=test-${LATEST_COMMIT}  --create-namespace jenkins-${LATEST_COMMIT} -f $helmValues $helmChart --set image.repository=${IMAGE_NAME} --set image.tag=${LATEST_COMMIT}"
-                }
-            }
-        }
+        // stage('Apply k8s') {
+        //     steps {
+        //         script {
+        //             echo "Deploy to k8s"
+        //             sh "helm upgrade --install --namespace=test-${LATEST_COMMIT}  --create-namespace jenkins-${LATEST_COMMIT} -f $helmValues $helmChart --set image.repository=${IMAGE_NAME} --set image.tag=${LATEST_COMMIT}"
+        //         }
+        //     }
+        // }
     }
 
     // post {
